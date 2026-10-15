@@ -1,0 +1,9 @@
+{
+  "authentication": {"required": true, "max_failed_attempts": 5, "session_ttl_seconds": 3600},
+  "passwords": {"storage": "strong_password_hash_only", "plaintext_storage": false},
+  "sessions": {"opaque_tokens": true, "store_token_hash": true},
+  "authorization": {"roles": ["USER","ACCOUNTANT","MANAGER","ADMIN","SUPERADMIN"]},
+  "transport": {"production_requires_tls": true},
+  "audit": {"enabled": true},
+  "secrets": {"source": "environment_or_secret_manager", "commit_to_git": false}
+}
