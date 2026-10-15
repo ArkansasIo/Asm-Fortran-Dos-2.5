@@ -14,10 +14,16 @@ int mysql_native_c_status(void);
 int mysql_native_c_execute(const char *sql, unsigned long length,
                            long long *affected_rows,
                            unsigned long long *insert_id);
+int mysql_native_c_prepare_execute(const char *sql, unsigned long sql_length,
+                                   const char *param_types, void **params,
+                                   unsigned int param_count,
+                                   long long *affected_rows,
+                                   unsigned long long *insert_id);
 int mysql_native_c_begin(void);
 int mysql_native_c_commit(void);
 int mysql_native_c_rollback(void);
 const char *mysql_native_c_error(void);
+const char *mysql_native_c_stmt_error(void);
 void mysql_native_c_close(void);
 
 #ifdef __cplusplus
