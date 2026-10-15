@@ -1,0 +1,24 @@
+{
+  "version": "1.0",
+  "dataset": {
+    "id": "string",
+    "name": "string",
+    "version": "string",
+    "description": "string",
+    "primary_key": "string",
+    "fields": "array",
+    "records": "array",
+    "metadata": {
+      "created_at": "datetime",
+      "updated_at": "datetime",
+      "source": "string"
+    }
+  },
+  "record_rules": {
+    "unique_primary_key": true,
+    "reject_unknown_fields": false,
+    "null_allowed_when_optional": true,
+    "trim_strings": true,
+    "validate_before_persistence": true
+  }
+}
