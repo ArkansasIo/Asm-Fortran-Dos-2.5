@@ -1,0 +1,10 @@
+{
+  "id": "invoices",
+  "name": "Invoices",
+  "version": "1.0",
+  "primary_key": "invoice_id",
+  "fields": ["invoice_id","customer_id","subtotal","tax","total","status","created_at","paid_at"],
+  "records": [
+    {"invoice_id":3001,"customer_id":1001,"subtotal":19.95,"tax":2.59,"total":22.54,"status":"OPEN","created_at":"2026-10-15T00:00:00Z","paid_at":null}
+  ]
+}
