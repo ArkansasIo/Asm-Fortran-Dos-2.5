@@ -4,6 +4,7 @@
 #include <string.h>
 
 static MYSQL *g_mysql = NULL;
+static char g_stmt_error[512];
 
 int mysql_native_c_init(void) {
     if (g_mysql != NULL) return 0;
@@ -39,11 +40,6 @@ int mysql_native_c_begin(void) { return mysql_native_c_execute("START TRANSACTIO
 int mysql_native_c_commit(void) { return mysql_native_c_execute("COMMIT", 6, NULL, NULL); }
 int mysql_native_c_rollback(void) { return mysql_native_c_execute("ROLLBACK", 8, NULL, NULL); }
 
-/*
- * Generic prepared execution for one or more parameters.
- * param_types uses 's' for string, 'i' for signed 64-bit integer,
- * and 'd' for double. params contains pointers to the corresponding values.
- */
 int mysql_native_c_prepare_execute(const char *sql, unsigned long sql_length,
                                    const char *param_types, void **params,
                                    unsigned int param_count,
@@ -54,12 +50,17 @@ int mysql_native_c_prepare_execute(const char *sql, unsigned long sql_length,
     unsigned int i;
     int rc = 1;
 
+    g_stmt_error[0] = '\0';
     if (g_mysql == NULL || sql == NULL) return 1;
     if (param_count > 0 && (param_types == NULL || params == NULL)) return 1;
 
     stmt = mysql_stmt_init(g_mysql);
     if (stmt == NULL) return (int)mysql_errno(g_mysql);
-    if (mysql_stmt_prepare(stmt, sql, sql_length) != 0) goto cleanup;
+    if (mysql_stmt_prepare(stmt, sql, sql_length) != 0) {
+        strncpy(g_stmt_error, mysql_stmt_error(stmt), sizeof(g_stmt_error)-1);
+        g_stmt_error[sizeof(g_stmt_error)-1] = '\0';
+        goto cleanup;
+    }
 
     if (param_count > 0) {
         bind = (MYSQL_BIND *)calloc(param_count, sizeof(MYSQL_BIND));
@@ -82,18 +83,26 @@ int mysql_native_c_prepare_execute(const char *sql, unsigned long sql_length,
                     bind[i].buffer = params[i];
                     break;
                 default:
+                    strncpy(g_stmt_error, "Unsupported prepared parameter type", sizeof(g_stmt_error)-1);
                     goto cleanup;
             }
         }
-        if (mysql_stmt_bind_param(stmt, bind) != 0) goto cleanup;
+        if (mysql_stmt_bind_param(stmt, bind) != 0) {
+            strncpy(g_stmt_error, mysql_stmt_error(stmt), sizeof(g_stmt_error)-1);
+            goto cleanup;
+        }
     }
 
-    if (mysql_stmt_execute(stmt) != 0) goto cleanup;
+    if (mysql_stmt_execute(stmt) != 0) {
+        strncpy(g_stmt_error, mysql_stmt_error(stmt), sizeof(g_stmt_error)-1);
+        goto cleanup;
+    }
     if (affected_rows) *affected_rows = (long long)mysql_stmt_affected_rows(stmt);
     if (insert_id) *insert_id = mysql_stmt_insert_id(stmt);
     rc = 0;
 
 cleanup:
+    g_stmt_error[sizeof(g_stmt_error)-1] = '\0';
     if (bind) free(bind);
     if (stmt) mysql_stmt_close(stmt);
     return rc;
@@ -104,7 +113,7 @@ const char *mysql_native_c_error(void) {
 }
 
 const char *mysql_native_c_stmt_error(void) {
-    return g_mysql ? mysql_stmt_error(NULL) : "MySQL client is not initialized";
+    return g_stmt_error[0] ? g_stmt_error : "No prepared statement error recorded";
 }
 
 void mysql_native_c_close(void) {
