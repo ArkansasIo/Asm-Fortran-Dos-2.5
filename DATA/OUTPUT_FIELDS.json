@@ -1,0 +1,11 @@
+{
+  "version": "1.0",
+  "outputs": {
+    "record": {"fields":["id","status","message","created_at","updated_at"]},
+    "customer_search": {"fields":["customer_id","name","email","phone","address"]},
+    "inventory": {"fields":["product_id","sku","name","quantity","unit_price","inventory_value"]},
+    "invoice": {"fields":["invoice_id","customer_id","subtotal","tax","total","status","created_at","paid_at"]},
+    "report": {"fields":["report_id","report_type","row_count","generated_at","data"]},
+    "error": {"fields":["error_code","message","field","details"]}
+  }
+}
