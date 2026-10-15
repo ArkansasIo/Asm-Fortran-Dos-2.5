@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Business OS Entry Record",
+  "type": "object",
+  "required": ["record_type", "operation", "fields"],
+  "properties": {
+    "record_type": {"type": "string"},
+    "operation": {"type": "string", "enum": ["CREATE", "UPDATE", "DELETE", "UPSERT"]},
+    "request_id": {"type": "string"},
+    "user_id": {"type": "integer"},
+    "fields": {"type": "object", "additionalProperties": true}
+  }
+}
