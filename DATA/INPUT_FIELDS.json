@@ -1,0 +1,27 @@
+{
+  "version": "1.0",
+  "forms": {
+    "login": [
+      {"name":"username","type":"string","required":true,"max_length":64},
+      {"name":"password","type":"string","required":true,"secret":true,"max_length":256}
+    ],
+    "customer": [
+      {"name":"customer_id","type":"integer","required":false,"readonly":true},
+      {"name":"name","type":"string","required":true,"max_length":160},
+      {"name":"email","type":"email","required":true},
+      {"name":"phone","type":"string","required":false,"max_length":32},
+      {"name":"address","type":"text","required":false}
+    ],
+    "product": [
+      {"name":"sku","type":"string","required":true,"max_length":64},
+      {"name":"name","type":"string","required":true,"max_length":160},
+      {"name":"quantity","type":"integer","required":true,"minimum":0},
+      {"name":"unit_price","type":"currency","required":true,"minimum":0}
+    ],
+    "invoice": [
+      {"name":"customer_id","type":"integer","required":true,"minimum":1},
+      {"name":"subtotal","type":"currency","required":true,"minimum":0},
+      {"name":"tax_rate","type":"decimal","required":true,"minimum":0,"maximum":1}
+    ]
+  }
+}
