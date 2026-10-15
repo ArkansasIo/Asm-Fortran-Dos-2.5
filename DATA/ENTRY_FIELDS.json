@@ -1,0 +1,21 @@
+{
+  "version": "1.0",
+  "entities": {
+    "customer": {
+      "primary_key": "customer_id",
+      "fields": ["customer_id","name","email","phone","address","created_at","updated_at"]
+    },
+    "product": {
+      "primary_key": "product_id",
+      "fields": ["product_id","sku","name","quantity","unit_price","created_at","updated_at"]
+    },
+    "invoice": {
+      "primary_key": "invoice_id",
+      "fields": ["invoice_id","customer_id","subtotal","tax","total","status","created_at","paid_at"]
+    },
+    "user": {
+      "primary_key": "user_id",
+      "fields": ["user_id","username","email","role","enabled","locked","created_at","last_login"]
+    }
+  }
+}
