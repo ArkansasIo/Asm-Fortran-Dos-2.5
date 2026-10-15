@@ -1,0 +1,26 @@
+{
+  "dataset": "world_reference_data",
+  "version": "1.1.0",
+  "source": {
+    "name": "World Bank",
+    "database": "World Development Indicators",
+    "api_version": "v2",
+    "api": "https://api.worldbank.org/v2",
+    "authentication_required": false
+  },
+  "countries": {
+    "scope": "all countries and territories returned by the World Bank country endpoint",
+    "fields": ["iso2", "iso3", "country_name", "region_name", "income_level", "lending_type", "capital_city", "latitude", "longitude"]
+  },
+  "indicators": [
+    {"code":"SP.POP.TOTL","name":"Population, total"},
+    {"code":"NY.GDP.MKTP.CD","name":"GDP (current US$)"},
+    {"code":"NY.GDP.PCAP.CD","name":"GDP per capita (current US$)"},
+    {"code":"SP.DYN.LE00.IN","name":"Life expectancy at birth, total (years)"},
+    {"code":"SL.UEM.TOTL.ZS","name":"Unemployment, total (% of total labor force)"}
+  ],
+  "refresh": {
+    "command": "python TOOLS/worldbank_import.py --start 2020 --end 2024 --output MYSQL/worldbank_live_snapshot.sql",
+    "note": "Run the importer to generate an exact point-in-time SQL snapshot. Do not replace authoritative values with rounded hand-entered estimates."
+  }
+}
