@@ -1,0 +1,10 @@
+{
+  "id": "users",
+  "name": "Users",
+  "version": "1.0",
+  "primary_key": "user_id",
+  "fields": ["user_id","username","email","role","enabled","locked","created_at","last_login"],
+  "records": [
+    {"user_id":1,"username":"demo","email":"demo@example.invalid","role":"USER","enabled":true,"locked":false,"created_at":"2026-10-15T00:00:00Z","last_login":null}
+  ]
+}
