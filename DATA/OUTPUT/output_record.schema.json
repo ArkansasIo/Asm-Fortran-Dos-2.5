@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Business OS Output Record",
+  "type": "object",
+  "required": ["status", "request_id"],
+  "properties": {
+    "status": {"type": "string", "enum": ["OK", "ERROR", "VALIDATION_ERROR", "UNAUTHORIZED", "NOT_FOUND", "DATABASE_ERROR"]},
+    "request_id": {"type": "string"},
+    "message": {"type": "string"},
+    "affected_rows": {"type": "integer"},
+    "data": {"type": "object", "additionalProperties": true},
+    "errors": {"type": "array", "items": {"type": "object"}}
+  }
+}
