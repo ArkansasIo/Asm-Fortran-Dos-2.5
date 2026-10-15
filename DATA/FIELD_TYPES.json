@@ -1,0 +1,15 @@
+{
+  "version": "1.0",
+  "field_types": {
+    "string": {"storage": "VARCHAR", "max_length": 255},
+    "text": {"storage": "TEXT"},
+    "integer": {"storage": "BIGINT"},
+    "decimal": {"storage": "DECIMAL(19,4)"},
+    "boolean": {"storage": "BOOLEAN"},
+    "date": {"storage": "DATE", "format": "YYYY-MM-DD"},
+    "datetime": {"storage": "DATETIME", "format": "ISO-8601"},
+    "email": {"storage": "VARCHAR", "max_length": 256},
+    "currency": {"storage": "DECIMAL(19,4)", "precision": 4},
+    "enum": {"storage": "VARCHAR", "requires_values": true}
+  }
+}
