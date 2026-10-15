@@ -1,0 +1,10 @@
+{
+  "id": "customers",
+  "name": "Customers",
+  "version": "1.0",
+  "primary_key": "customer_id",
+  "fields": ["customer_id","name","email","phone","address","created_at","updated_at"],
+  "records": [
+    {"customer_id":1001,"name":"Example Customer","email":"customer@example.invalid","phone":"555-0100","address":"Demo Address","created_at":"2026-10-15T00:00:00Z","updated_at":"2026-10-15T00:00:00Z"}
+  ]
+}
