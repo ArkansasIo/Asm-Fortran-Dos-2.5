@@ -1,0 +1,8 @@
+{
+  "jobs": [
+    {"name":"database-health","interval_minutes":5,"enabled":true,"command":"python3 SERVER/JOBS/health_check.py"},
+    {"name":"report-generation","interval_minutes":60,"enabled":true,"command":"python3 SERVER/JOBS/generate_reports.py"},
+    {"name":"session-cleanup","interval_minutes":15,"enabled":true,"command":"python3 SERVER/JOBS/session_cleanup.py"},
+    {"name":"audit-rotation","interval_minutes":1440,"enabled":true,"command":"python3 SERVER/JOBS/audit_rotation.py"}
+  ]
+}
