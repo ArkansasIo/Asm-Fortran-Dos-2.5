@@ -1,6 +1,7 @@
 module db_types
   implicit none
-  integer, parameter :: DB_OK=0, DB_ERROR=1, DB_NOT_FOUND=2
+  integer, parameter :: DB_OK=0, DB_ERROR=1, DB_NOT_CONNECTED=2
+  integer, parameter :: DB_INVALID_ARGUMENT=3, DB_TRANSACTION_ERROR=4
   integer, parameter :: DB_MAX_HOST=128, DB_MAX_DB=128, DB_MAX_USER=128
   integer, parameter :: DB_MAX_PASSWORD=256, DB_MAX_SQL=8192
 
@@ -13,6 +14,14 @@ module db_types
      integer :: connect_timeout=10
      logical :: tls_enabled=.true.
   end type db_config
+
+  type :: db_connection
+     type(db_config) :: config
+     logical :: connected=.false.
+     logical :: transaction_active=.false.
+     integer(kind=8) :: native_handle=0
+     integer :: last_error=DB_OK
+  end type db_connection
 
   type :: db_result
      integer :: status=DB_OK
