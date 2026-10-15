@@ -1,0 +1,11 @@
+record_id,field_name,data_type,required,source,example
+1,username,string,true,login_form,admin
+2,email,string,true,registration_form,admin@example.local
+3,password,string,true,login_form,REDACTED
+4,customer_id,int64,true,customer_form,1001
+5,product_id,int64,true,inventory_form,2001
+6,quantity,int32,true,sales_form,5
+7,unit_price,decimal,true,sales_form,19.95
+8,tax_rate,decimal,true,accounting_form,0.13
+9,status,string,true,workflow_form,OPEN
+10,description,string,false,entry_form,Example record
